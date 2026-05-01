@@ -31,7 +31,7 @@
             </a>
           
             <a href="/test" class="list-group-item list-group-item-action"> - TestCRUD </a>
-           
+            <a href="/admin" class="list-group-item list-group-item-action"> - Admin </a>
              
 
  

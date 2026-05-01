@@ -15,32 +15,44 @@
     <div class="row">
         <div class="col-sm-9">
 
-            <h3> :: form Add :: </h3>
+            <h3> :: form Add Admin:: </h3>
 
 
-<form action="/test/" method="post">
+<form action="/admin/" method="post">
 @csrf
 
 
 <div class="form-group row mb-2">
-    <label class="col-sm-2"> Name 1 </label>
+    <label class="col-sm-2"> ชื่อ-สกุล </label>
     <div class="col-sm-6">
-        <input type="text" class="form-control" name="name" required placeholder="Name1" minlength="3"  value="{{ old('name') }}">
+        <input type="text" class="form-control" name="admin_name" required placeholder="ชื่อ - สกุล" minlength="3"  value="{{ old('admin_name') }}">
         @if(isset($errors))
-            @if($errors->has('name'))
-                <div class="text-danger"> {{ $errors->first('name') }}</div>
+            @if($errors->has('admin_name'))
+                <div class="text-danger"> {{ $errors->first('admin_name') }}</div>
             @endif 
         @endif
     </div>
 </div>
 
 <div class="form-group row mb-2">
-    <label class="col-sm-2"> Name 2 </label>
+    <label class="col-sm-2"> username </label>
     <div class="col-sm-6">
-        <input type="text" class="form-control" name="name2" required placeholder="Name2" minlength="3"  value="{{ old('name2') }}">
+        <input type="email" class="form-control" name="admin_username" required placeholder="Username" minlength="3"  value="{{ old('admin_username') }}">
         @if(isset($errors))
-            @if($errors->has('name2'))
-                <div class="text-danger"> {{ $errors->first('name2') }}</div>
+            @if($errors->has('admin_username'))
+                <div class="text-danger"> {{ $errors->first('admin_username') }}</div>
+            @endif 
+        @endif
+    </div>
+</div>
+
+<div class="form-group row mb-2">
+    <label class="col-sm-2"> password </label>
+    <div class="col-sm-6">
+        <input type="password" class="form-control" name="admin_password" required placeholder="Password" minlength="3" >
+        @if(isset($errors))
+            @if($errors->has('admin_password'))
+                <div class="text-danger"> {{ $errors->first('admin_password') }}</div>
             @endif 
         @endif
     </div>
@@ -51,8 +63,8 @@
     <label class="col-sm-2">  </label>
     <div class="col-sm-5">
        
-       <button type="submit" class="btn btn-primary"> Insert  </button> 
-       <a href="/test" class="btn btn-danger">cancel</a>
+       <button type="submit" class="btn btn-primary"> เพิ่มข้อมูล  </button> 
+       <a href="/admin" class="btn btn-danger">ยกเลิก</a>
     </div>
 </div>
 

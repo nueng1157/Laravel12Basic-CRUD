@@ -16,16 +16,16 @@ public function index()
 {
     try {
         Paginator::useBootstrap();
-        $testList = TestModel::orderBy('id', 'desc')->paginate(5); //order by & pagination
-        return view('test.list', compact('testList'));
+        $List = AdminModel::orderBy('id', 'desc')->paginate(5); //order by & pagination
+        return view('admin.list', compact('List'));
     } catch (\Exception $e) {
-       // \Log::error('Admin list error: '.$e->getMessage());
+       Log::error('Admin list error: '.$e->getMessage());
          return view('errors.404');
     }
 }
 
     public function adding() {
-        return view('test.create');
+        return view('admin.create');
     }
 
     public function create(Request $request)
