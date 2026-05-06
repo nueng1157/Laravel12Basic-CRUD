@@ -86,7 +86,7 @@
 <script>
 function deleteConfirm(id) {
     Swal.fire({
-        title: 'คุณแน่ใจหรือไม่?',
+        title: 'คุณต้องการลบ Admin คนนี้หรือไม่?',
         text: "หากลบแล้วจะไม่สามารถกู้คืนได้!",
         icon: 'warning',
         showCancelButton: true,

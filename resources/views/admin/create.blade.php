@@ -47,7 +47,7 @@
 </div>
 
 <div class="form-group row mb-2">
-    <label class="col-sm-2"> password </label>
+    <label class="col-sm-2"> Password </label>
     <div class="col-sm-6">
         <input type="password" class="form-control" name="admin_password" required placeholder="Password" minlength="3" >
         @if(isset($errors))

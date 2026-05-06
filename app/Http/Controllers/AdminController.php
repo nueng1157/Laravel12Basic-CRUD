@@ -36,23 +36,28 @@ public function index()
 
         //vali msg 
         $messages = [
-            'name.required' => 'กรุณากรอกข้อมูล',
-            'name.min' => 'กรอกข้อมูลขั้นต่ำ :min ตัวอักษร',
-            'name.unique' => 'ชื่อซ้ำ เพิ่มใหม่อีกครั้ง',
+            'admin_username.required' => 'กรุณากรอกข้อมูล',
+            'admin_username.min' => 'กรอกข้อมูลขั้นต่ำ :min ตัวอักษร',
+            'admin_username.unique' => 'User name ซ้ำ เพิ่มใหม่อีกครั้ง',
+            'admin_username.email' => 'รูปแบบ email ไม่ถูกต้อง',
 
-            'name2.required' => 'กรุณากรอกข้อมูล',
-            'name2.min' => 'กรอกข้อมูลขั้นต่ำ :min ตัวอักษร',
+            'admin_password.required' => 'กรุณากรอกข้อมูล',
+            'admin_password.min' => 'กรอกข้อมูลขั้นต่ำ :min ตัวอักษร',
+
+            'admin_name.required' => 'กรุณากรอกข้อมูล',
+            'admin_name.min' => 'กรอกข้อมูลขั้นต่ำ :min ตัวอักษร',
         ];
 
         //rule 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3|unique:tbl_test', //unique: ใส่ชื่อตารางด้วย ไม่ให้ใส่ข้อมูลซ้ำ
-            'name2' => 'required|min:3',
+            'admin_username' => 'required|email|min:3|unique:tbl_admin', //unique: ใส่ชื่อตารางด้วย ไม่ให้ใส่ข้อมูลซ้ำ
+            'admin_password' => 'required|min:3',
+            'admin_name' => 'required|min:3',
         ], $messages);
 
         //check vali 
         if ($validator->fails()) {
-            return redirect('test/adding')
+            return redirect('admin/adding')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -60,13 +65,14 @@ public function index()
         try {
 
             //ปลอดภัย: กัน XSS ที่มาจาก <script>, <img onerror=...> ได้
-            TestModel::create([
-                'name' => strip_tags($request->input('name')), //ป้องกันการกรอก script ด้วย
-                'name2' => strip_tags($request->input('name2')), //ป้องกันการกรอก script ด้วย
-            ]);
+            AdminModel::create([
+                'admin_name' => strip_tags($request->input('admin_name')), //ป้องกันการกรอก script ด้วย
+                'admin_username' => strip_tags($request->input('admin_username')), //ป้องกันการกรอก script ด้วย
+                'admin_password' => bcrypt($request->input('admin_password')),
+                ]);  
             // แสดง Alert ก่อน return
             Alert::success('เพิ่มข้อมูลสำเร็จ');
-            return redirect('/test'); //กลับไปที่หน้า index
+            return redirect('/admin'); //กลับไปที่หน้า index
         } catch (\Exception $e) {
             //return response()->json(['error' => $e->getMessage()], 500); //สำหรับ debug
             return view('errors.404');
@@ -145,7 +151,10 @@ public function index()
 
     public function remove($id)
     {
-        try {
+        echo '<pre>';
+        dd($_POST);
+        exit();
+                try {
             $test = TestModel::find($id);  //query หาว่ามีไอดีนี้อยู่จริงไหม 
             $test->delete();
             Alert::success('Delete Successfully');
